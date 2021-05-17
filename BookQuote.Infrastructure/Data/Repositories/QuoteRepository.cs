@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BookQuote.Infrastructure.Data.Repositories
 {
-    public class QuoteRepository
+    public class QuoteRepository : IQuoteRepository
     {
         private IMongoCollection<Quote> collection;
         public QuoteRepository(IDbContext dbContext)
@@ -15,30 +15,20 @@ namespace BookQuote.Infrastructure.Data.Repositories
             collection = dbContext.GetCollection<Quote>(typeof(Quote).Name);
         }
 
-        // Create
         public void Add(Quote quote)
         {
-
-        }
-        public void Add(List<Quote> quotes)
-        {
-
-        }
-        // Read
-        public void Get()
-        {
-
+            collection.InsertOne(quote);
         }
 
-        // Update
-        public void Update()
+        public void Add(IList<Quote> quotes)
         {
-
+            collection.InsertMany(quotes);
         }
-        // Delete
-        public void Delete()
-        {
 
+        public List<Quote> Find(string word)
+        {
+            var wordSearch = collection.Find(Builders<Quote>.Filter.Text(word)).ToList();
+            return wordSearch;
         }
     }
 }
