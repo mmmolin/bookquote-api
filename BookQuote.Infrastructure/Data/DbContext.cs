@@ -11,8 +11,8 @@ namespace BookQuote.Infrastructure.Data
         private IMongoDatabase database;
         public DbContext(IConfiguration configuration)
         {
-            this.client = new MongoClient("connectionstring");
-            database = client.GetDatabase("BookQuote");
+            this.client = new MongoClient(configuration["BookQuoteDatabaseSettings:ConnectionString"]);
+            database = client.GetDatabase(configuration["BookQuoteDatabaseSettings:DatabaseName"]);
         }
         public IMongoCollection<T> GetCollection<T>(string name)
         {
