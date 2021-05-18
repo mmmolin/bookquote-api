@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookQuote.Core\BookQuote.Core.csproj" />
+    <ProjectReference Include="..\BookQuote.Infrastructure\BookQuote.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
